@@ -1,0 +1,5 @@
+.DStore
+.vscode
+object
+*.o
+*.a
