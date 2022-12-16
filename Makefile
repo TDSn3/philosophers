@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/16 12:05:35 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/16 23:41:01 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,15 @@ CFLAGS		= -Wall -Wextra -Werror
 # **************************************************************************** #
 
 I_HEADERS	= -I $(INC_DIR)
+L_LIB		= -lpthread
 
 ################################################################################
 
 HEADERS		= ./include/header.h
 
-NAME_FILE	= main
+NAME_FILE	= main																\
+			  check_error														\
+			  init																\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
@@ -41,12 +44,12 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@
+	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux
 
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(I_HEADERS) -o $(NAME)
+	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME) -D_REENTRANT -DLinux
 
 ################################################################################
 
