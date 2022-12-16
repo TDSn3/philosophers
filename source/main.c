@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/16 12:06:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:55:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	main(int argc, char **argv)
 {
 	(void) argc;
 	(void) argv;
-	printf("Hello world !\n");
+	printf("Key test...\n");
 	return (0);
 }
