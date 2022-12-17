@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/16 23:54:01 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/17 01:25:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 
 	if (check_error(argc, argv) || init(&philo, argc, argv))
 		return (1);
-	printf("Ok !\n");
+	start_all_thread(&philo);
+	wait_pt(&philo);
 	return (0);
 }

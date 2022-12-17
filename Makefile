@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/16 23:41:01 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/17 01:25:45 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ HEADERS		= ./include/header.h
 NAME_FILE	= main																\
 			  check_error														\
 			  init																\
+			  exec_philo														\
+			  start_all_thread													\
+			  wait_pt															\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

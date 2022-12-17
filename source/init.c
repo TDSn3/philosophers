@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 00:00:40 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:25:12 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init(t_philo *philo, int argc, char **argv)
 	philo->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		philo->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	memset(philo->the_philosophers, 0, sizeof(pthread_t) * PTHREAD_KEYS_MAX);
 	return (0);
 }
 
