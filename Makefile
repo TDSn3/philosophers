@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/18 06:38:37 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/18 12:41:09 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,12 +57,12 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux
+	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux -fsanitize=address
 
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME) -D_REENTRANT -DLinux
+	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME) -D_REENTRANT -DLinux -fsanitize=address
 
 ################################################################################
 

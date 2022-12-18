@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 07:50:04 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 12:50:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	main(int argc, char **argv)
 {
 	t_l_p			list_main;
 
-	if (check_error(argc, argv) || init(&list_main, argc, argv)
-		|| start_all_thread(&list_main))
+	if (check_error(argc, argv) || init(&list_main, argc, argv))
 		return (1);
-	wait_thread(&list_main);
+	while (1)
+	{
+		start_all_thread(&list_main);
+		wait_thread(&list_main);
+	}
 	return (free_all(0, &list_main));
 }

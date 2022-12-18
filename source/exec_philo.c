@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:31:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 07:56:26 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 12:57:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,50 @@ void	*exec_philo(void *data)
 	t_ll_p			*own_ll_p;
 	t_l_p			*list_main;
 	struct timeval	tv;
-	unsigned int	time;
+	int				time;
+	int				err;
 
 	own_ll_p = (t_ll_p *) data;
+	if (!own_ll_p->alive)
+		return (NULL);
 	list_main = own_ll_p->list_main;
 	gettimeofday(&tv, NULL);
 	time = (tv.tv_usec - list_main->timestamp) / 1000;
-	printf("%-5d %d created\n", time, own_ll_p->id);
-	list_main->start += 1;
-	while (1)
+	if (time < 0)
+		time = 0;
+//	printf("%-5u %d created\n", time, own_ll_p->id);
+
+
+
+	err = pthread_mutex_lock(&list_main->mutex);
+	if (err)
 	{
-		if (list_main->start < list_main->number_of_philosophers)
-			usleep(1000);
-		else
-			break ;
+		ft_putstr_fd("Error : pthread_mutex_lock\n", 2);
+		return (NULL);
 	}
-	while (1)
+	if (list_main->start < list_main->number_of_philosophers)
 	{
-		gettimeofday(&tv, NULL);
-		time = (tv.tv_usec - list_main->timestamp) / 1000;
-		if ((int) time >= list_main->time_to_die)
-		{
-			printf("%-5d %d died\n", time, own_ll_p->id);
-			return (NULL);
-		}
+		list_main->start += 1;
+		err = pthread_mutex_unlock(&list_main->mutex);
+		if (err)
+			ft_putstr_fd("Error : pthread_mutex_unlock\n", 2);
+		return (NULL);
+	}
+	err = pthread_mutex_unlock(&list_main->mutex);
+	if (err)
+	{
+		ft_putstr_fd("Error : pthread_mutex_unlock\n", 2);
+		return (NULL);
+	}
+
+
+
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_usec - list_main->timestamp) / 1000;
+	if (time >= list_main->time_to_die)
+	{
+		printf("%-5d %d died\n", time, own_ll_p->id);
+		own_ll_p->alive = 0;
 	}
 	return (NULL);
 }
