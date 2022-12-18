@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 06:27:34 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 07:48:23 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	init(t_l_p *list_main, int argc, char **argv)
 		ft_putstr_fd("Error : malloc\n", 2);
 		return (1);
 	}
+	list_main->start = 0;
 	return (0);
 }
 
