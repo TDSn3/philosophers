@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:31:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 12:57:19 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:32:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*exec_philo(void *data)
 	time = (tv.tv_usec - list_main->timestamp) / 1000;
 	if (time < 0)
 		time = 0;
-//	printf("%-5u %d created\n", time, own_ll_p->id);
+	printf("%-5u %d created\n", time, own_ll_p->id);
 
 
 
@@ -38,29 +38,26 @@ void	*exec_philo(void *data)
 		ft_putstr_fd("Error : pthread_mutex_lock\n", 2);
 		return (NULL);
 	}
-	if (list_main->start < list_main->number_of_philosophers)
-	{
-		list_main->start += 1;
-		err = pthread_mutex_unlock(&list_main->mutex);
-		if (err)
-			ft_putstr_fd("Error : pthread_mutex_unlock\n", 2);
-		return (NULL);
-	}
+	list_main->start += 1;
 	err = pthread_mutex_unlock(&list_main->mutex);
 	if (err)
 	{
 		ft_putstr_fd("Error : pthread_mutex_unlock\n", 2);
 		return (NULL);
 	}
+	while (list_main->start < list_main->number_of_philosophers)
+		usleep(1000);
 
-
-
-	gettimeofday(&tv, NULL);
-	time = (tv.tv_usec - list_main->timestamp) / 1000;
-	if (time >= list_main->time_to_die)
+	while (1)
 	{
-		printf("%-5d %d died\n", time, own_ll_p->id);
-		own_ll_p->alive = 0;
+		gettimeofday(&tv, NULL);
+		time = (tv.tv_usec - list_main->timestamp) / 1000;
+		if (time >= list_main->time_to_die)
+		{
+			printf("%-5d %d died\n", time, own_ll_p->id);
+			own_ll_p->alive = 0;
+			return (NULL);
+		}
 	}
 	return (NULL);
 }

@@ -6,13 +6,26 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:52:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 12:49:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:15:08 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+int	exec_all_thread(t_l_p *list_main);
+
 int	start_all_thread(t_l_p *list_main)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	list_main->timestamp = tv.tv_usec;
+	if (exec_all_thread(list_main))
+		return (1);
+	return (0);
+}
+
+int	exec_all_thread(t_l_p *list_main)
 {
 	int		i;
 	int		ret;
