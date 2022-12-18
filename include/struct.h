@@ -6,43 +6,43 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 02:30:23 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 06:20:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+struct	s_linked_list_philo;
+
 /* ************************************************************************** */
 
-typedef struct s_list_int
+typedef struct s_list_philo {
+	int							number_of_philosophers;
+	int							time_to_die;
+	int							time_to_eat;
+	int							time_to_sleep;
+	int							number_of_times_each_philosopher_must_eat;
+	struct s_linked_list_philo	*linked_list_philo;
+}	t_l_p;
+
+/* ************************************************************************** */
+
+typedef struct s_linked_list_philo
 {
-	int					id;
-	pthread_t			the_philosopher;
-	pthread_mutex_t		fork;
-	struct s_list_int	*prev;
-	struct s_list_int	*next;
-}	t_li;
+	int							id;
+	pthread_t					the_philosopher;
+	pthread_mutex_t				fork;
+	struct s_list_philo			*list_main;
+	struct s_linked_list_philo	*prev;
+	struct s_linked_list_philo	*next;
+}	t_ll_p;
 
-int						li_add_back(t_li **lst, t_li *new);
-void					li_clear_one(t_li **lst, int content);
-void					li_clear(t_li **lst);
-t_li					*li_last(t_li *lst);
-t_li					*li_new(int content_one, int content_two);
-int						li_size(t_li *lst);
-int						li_find_content(t_li *lst, int pid);
-
-/* ************************************************************************** */
-
-typedef struct s_philo {
-	int					number_of_philosophers;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					number_of_times_each_philosopher_must_eat;
-	pthread_t			the_philosophers[PTHREAD_KEYS_MAX];
-	t_li				*list_philo;
-}	t_philo;
+int								ll_p_add_back(t_ll_p **list, t_ll_p *new);
+void							ll_p_clear(t_ll_p **lst);
+t_ll_p							*ll_p_last(t_ll_p *list);
+t_ll_p							*ll_p_new(int id_philo, t_l_p *list_main);
+int								ll_p_size(t_ll_p *list);
 
 /* ************************************************************************** */
 

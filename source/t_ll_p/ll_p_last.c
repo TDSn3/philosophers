@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   li_size.c                                          :+:      :+:    :+:   */
+/*   li_last.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 13:59:36 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 02:18:13 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/03/16 14:52:12 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/06/19 11:17:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	li_size(t_li *lst)
+t_ll_p	*ll_p_last(t_ll_p *list)
 {
-	t_li	*nextl;
-	size_t	i;
-
-	i = 0;
-	nextl = lst;
-	if (!lst)
-		return (0);
-	while (nextl)
-	{
-		nextl = nextl->next;
-		i++;
-	}
-	return (i);
+	if (!list)
+		return (NULL);
+	while (list->next)
+		list = list->next;
+	return (list);
 }

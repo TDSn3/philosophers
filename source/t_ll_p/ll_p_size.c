@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   li_clear.c                                         :+:      :+:    :+:   */
+/*   ll_p_size.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 15:19:08 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 02:19:54 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/03/16 13:59:36 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/18 04:25:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	li_clear(t_li **lst)
+int	ll_p_size(t_ll_p *list)
 {
-	t_li	**copyli;
-	t_li	*copyli_two;
+	size_t	i;
+	t_ll_p	*next_list;
 
-	copyli = lst;
-	if (!*lst)
-		return ;
-	while (*copyli)
+	if (!list)
+		return (0);
+	i = 0;
+	next_list = list;
+	while (next_list)
 	{
-		copyli_two = (*copyli)->next;
-		(*copyli)->content_one = -2;
-		(*copyli)->content_two = -2;
-		(*copyli)->content_three = -2;
-		(*copyli)->content_four = -2;
-		(*copyli)->content_five = -2;
-		free(*copyli);
-		*copyli = copyli_two;
+		i++;
+		next_list = next_list->next;
 	}
-	*lst = NULL;
+	return (i);
 }

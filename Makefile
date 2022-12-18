@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/17 01:25:45 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/18 04:50:34 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,21 @@ L_LIB		= -lpthread
 
 HEADERS		= ./include/header.h
 
-NAME_FILE	= main																\
+NAME_FILE	= $(addprefix t_ll_p/,												\
+								 ll_p_add_back									\
+								 ll_p_clear										\
+								 ll_p_last										\
+								 ll_p_new										\
+								 ll_p_size										\
+			   )																\
+			  main																\
+			  ft_strlen															\
+			  ft_putstr_fd														\
 			  check_error														\
 			  init																\
 			  exec_philo														\
 			  start_all_thread													\
-			  wait_pt															\
+			  wait_thread														\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

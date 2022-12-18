@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_philo.c                                       :+:      :+:    :+:   */
+/*   ll_p_add_back.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 00:31:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 06:21:52 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/03/16 16:18:44 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/18 05:46:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	*exec_philo(void *data)
+int	ll_p_add_back(t_ll_p **list, t_ll_p *new)
 {
-	t_ll_p	*linked_list_philo;
+	t_ll_p	*copy;
 
-	linked_list_philo = (t_ll_p *) data;
-	printf("Phhilosopher %d created\n", linked_list_philo->id);
-	return (NULL);
+	if (!new)
+		return (1);
+	if (list)
+	{
+		if (!*list)
+			*list = new;
+		else
+		{
+			copy = ll_p_last(*list);
+			copy->next = new;
+			copy->next->prev = copy;
+		}
+	}
+	return (0);
 }

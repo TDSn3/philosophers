@@ -6,28 +6,31 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:52:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 01:25:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 06:28:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	start_all_thread(t_philo *philo)
+int	start_all_thread(t_l_p *list_main)
 {
-	long int	i;
-	int			ret;
+	int		i;
+	int		ret;
+	t_ll_p	*copy;
 
 	i = 0;
-	while (i < philo->number_of_philosophers)
+	copy = list_main->linked_list_philo;
+	while (i < list_main->number_of_philosophers && copy)
 	{
 		ret = pthread_create(
-				&philo->the_philosophers[i], NULL, exec_philo, (void *) i);
+				&copy->the_philosopher, NULL, exec_philo, (void *) copy);
 		if (ret)
 		{
-			printf("Error\n");
-			continue ;
+			ft_putstr_fd("Error : thread no created\n", 2);
+			return (1);
 		}
 		i++;
+		copy = copy->next;
 	}
 	return (0);
 }

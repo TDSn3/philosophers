@@ -6,25 +6,49 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 00:25:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 06:27:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	ft_atoi(const char *nptr);
+static int	init_ll_p(t_l_p *list_main);
 
-int	init(t_philo *philo, int argc, char **argv)
+int	init(t_l_p *list_main, int argc, char **argv)
 {
-	philo->number_of_philosophers = ft_atoi(argv[1]);
-	if (philo->number_of_philosophers > PTHREAD_KEYS_MAX)
+	list_main->number_of_philosophers = ft_atoi(argv[1]);
+	if (list_main->number_of_philosophers > PTHREAD_KEYS_MAX)
 		return (1);
-	philo->time_to_die = ft_atoi(argv[2]);
-	philo->time_to_eat = ft_atoi(argv[3]);
-	philo->time_to_sleep = ft_atoi(argv[4]);
+	list_main->time_to_die = ft_atoi(argv[2]);
+	list_main->time_to_eat = ft_atoi(argv[3]);
+	list_main->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		philo->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	memset(philo->the_philosophers, 0, sizeof(pthread_t) * PTHREAD_KEYS_MAX);
+		list_main->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	list_main->linked_list_philo = NULL;
+	if (init_ll_p(list_main))
+	{
+		ll_p_clear(&list_main->linked_list_philo);
+		ft_putstr_fd("Error : malloc\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	init_ll_p(t_l_p *list_main)
+{
+	int		i;
+	t_ll_p	*new_list;
+
+	i = 0;
+	while (i < list_main->number_of_philosophers)
+	{
+		new_list = ll_p_new(i + 1, list_main);
+		if (!new_list)
+			return (1);
+		ll_p_add_back(&list_main->linked_list_philo, new_list);
+		i++;
+	}
 	return (0);
 }
 

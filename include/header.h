@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 01:25:16 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 06:27:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 
 # include "struct.h"
 
+size_t	ft_strlen(const char *s);
+void	ft_putstr_fd(char *s, int fd);
 int		check_error(int argc, char **argv);
-int		init(t_philo *philo, int argc, char **argv);
+int		init(t_l_p *list_main, int argc, char **argv);
 void	*exec_philo(void *data);
-int		start_all_thread(t_philo *philo);
-void	wait_pt(t_philo *philo);
+int		start_all_thread(t_l_p *list_main);
+void	wait_thread(t_l_p *list_main);
+int		free_all(int return_value, t_l_p *list_main);
 
 #endif

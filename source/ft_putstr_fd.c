@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   li_find_content.c                                  :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 21:06:48 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 02:18:07 by tda-silv         ###   ########.fr       */
+/*   Created: 2021/12/11 12:01:21 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/18 04:44:18 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	li_find_content(t_li *lst, int content)
+void	ft_putstr_fd(char *s, int fd)
 {
-	t_li	*nextl;
-	size_t	i;
-
-	i = 0;
-	nextl = lst;
-	if (!lst)
-		return (0);
-	while (nextl)
-	{
-		if (nextl->content_one == content)
-			return (content);
-		nextl = nextl->next;
-		i++;
-	}
-	return (0);
+	if (s)
+		write(fd, s, ft_strlen(s));
 }

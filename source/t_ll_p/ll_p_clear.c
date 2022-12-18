@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_philo.c                                       :+:      :+:    :+:   */
+/*   ll_p_clear.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 00:31:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 06:21:52 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/03/17 15:19:08 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/18 05:04:32 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	*exec_philo(void *data)
+void	ll_p_clear(t_ll_p **list)
 {
-	t_ll_p	*linked_list_philo;
+	t_ll_p	**copy;
+	t_ll_p	*copy_two;
 
-	linked_list_philo = (t_ll_p *) data;
-	printf("Phhilosopher %d created\n", linked_list_philo->id);
-	return (NULL);
+	copy = list;
+	if (!*list)
+		return ;
+	while (*copy)
+	{
+		copy_two = (*copy)->next;
+		(*copy)->id = 0;
+		free((*copy)->the_philosopher);
+		(*copy)->list_main = NULL;
+		free(*copy);
+		*copy = copy_two;
+	}
+	*list = NULL;
 }
