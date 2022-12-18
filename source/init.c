@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 12:49:37 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:46:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int	init(t_l_p *list_main, int argc, char **argv)
 	list_main->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		list_main->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	list_main->linked_list_philo = NULL;
-	if (init_ll_p(list_main))
-		return (1);
 	list_main->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	pthread_mutex_init(&list_main->mutex, NULL);
+	if (init_ll_p(list_main))
+		return (1);
 	gettimeofday(&tv, NULL);
 	list_main->timestamp = tv.tv_usec;
 	if (mutex_init_var_start(list_main))
@@ -66,6 +65,7 @@ static int	init_ll_p(t_l_p *list_main)
 	t_ll_p	*new_list;
 
 	i = 0;
+	list_main->linked_list_philo = NULL;
 	while (i < list_main->number_of_philosophers)
 	{
 		new_list = ll_p_new(i + 1, list_main);
