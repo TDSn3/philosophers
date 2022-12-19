@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:52:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/19 01:02:45 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/19 09:54:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	start_all_thread(t_l_p *list_main)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	list_main->timestamp = tv.tv_usec;
+	list_main->timestamp = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	if (exec_all_thread(list_main))
 		return (1);
 	return (0);
