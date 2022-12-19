@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 15:46:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:02:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static int	mutex_init_var_start(t_l_p *list_main);
 
 int	init(t_l_p *list_main, int argc, char **argv)
 {
-	struct timeval	tv;
-
 	list_main->number_of_philosophers = ft_atoi(argv[1]);
 	if (list_main->number_of_philosophers > PTHREAD_KEYS_MAX)
 		return (1);
@@ -28,12 +26,10 @@ int	init(t_l_p *list_main, int argc, char **argv)
 	list_main->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		list_main->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-	list_main->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	pthread_mutex_init(&list_main->mutex, NULL);
 	if (init_ll_p(list_main))
 		return (1);
-	gettimeofday(&tv, NULL);
-	list_main->timestamp = tv.tv_usec;
+	list_main->mutex_start = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	pthread_mutex_init(&list_main->mutex_start, NULL);
 	if (mutex_init_var_start(list_main))
 		return (1);
 	return (0);
@@ -43,14 +39,14 @@ static int	mutex_init_var_start(t_l_p *list_main)
 {
 	int	err;
 
-	err = pthread_mutex_lock(&list_main->mutex);
+	err = pthread_mutex_lock(&list_main->mutex_start);
 	if (err)
 	{
 		ft_putstr_fd("Error : pthread_mutex_lock\n", 2);
 		return (1);
 	}
 	list_main->start = 0;
-	err = pthread_mutex_unlock(&list_main->mutex);
+	err = pthread_mutex_unlock(&list_main->mutex_start);
 	if (err)
 	{
 		ft_putstr_fd("Error : pthread_mutex_unlock\n", 2);

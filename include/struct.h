@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/18 15:51:33 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:01:59 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_list_philo {
 	int							time_to_eat;
 	int							time_to_sleep;
 	int							number_of_times_each_philosopher_must_eat;
-	pthread_mutex_t				mutex;
 	struct s_linked_list_philo	*linked_list_philo;
-	int							timestamp;
+	suseconds_t					timestamp;
+	pthread_mutex_t				mutex_start;
 	int							start;
 }	t_l_p;
 
@@ -36,6 +36,7 @@ typedef struct s_linked_list_philo
 	int							id;
 	int							alive;
 	pthread_t					the_philosopher;
+	pthread_mutex_t				mutex_fork;
 	int							fork;
 	struct s_list_philo			*list_main;
 	struct s_linked_list_philo	*prev;
