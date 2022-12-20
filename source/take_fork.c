@@ -6,44 +6,53 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:06:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/19 11:21:41 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/19 23:26:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static int	on_next_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat);
-static int	on_first_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat);
+static int	on_next_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat, t_l_ep *__);
+static int	on_first_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat, t_l_ep *__);
 
-int	take_fork(t_l_p *list_main, t_ll_p *own_ll_p, int *eat)
+int	take_fork(t_l_p *list_main, t_ll_p *own_ll_p, int *eat, t_l_ep	*__)
 {
 	if (own_ll_p->next)
 	{
-		if (on_next_list(list_main, own_ll_p, eat))
+		if (on_next_list(list_main, own_ll_p, eat, __))
 			return (1);
 	}
 	else
 	{
-		if (on_first_list(list_main, own_ll_p, eat))
+		if (on_first_list(list_main, own_ll_p, eat, __))
 			return (1);
 	}
 	return (0);
 }
 
-static int	on_next_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat)
+static int	on_next_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat, t_l_ep *__)
 {
 	struct timeval		tv;
 	unsigned long int	time;
 	int					err;
 
-	gettimeofday(&tv, NULL);
-	time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
 	err = pthread_mutex_lock(&own_ll_p->next->mutex_fork);
 	if (err)
 		return ((long int) return_error(1, err, 1));
+	gettimeofday(&tv, NULL);
+	time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
+	if (check_die2(list_main, own_ll_p, *eat, __))
+	{
+		err = pthread_mutex_unlock(&own_ll_p->next->mutex_fork);
+		if (err)
+			return ((long int) return_error(2, err, 1));
+		return (1);
+	}
 	own_ll_p->next->fork = 1;
 	printf("\033[32m%-5lu %-5d has taken a fork\033[00m\n", time, own_ll_p->id);
 	printf("\033[34m%-5lu %-5d is eating\033[00m\n", time, own_ll_p->id);
+	if ((unsigned long long)list_main->time_to_eat > __->list_main->time_to_die - __->time - __->eat)
+		printf("MORT pendant qu'il mange\n%d\n%llu\n", list_main->time_to_eat, __->list_main->time_to_die - __->time - __->eat);
 	usleep(list_main->time_to_eat * 1000);
 	gettimeofday(&tv, NULL);
 	*eat = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
@@ -53,20 +62,31 @@ static int	on_next_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat)
 	return (0);
 }
 
-static int	on_first_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat)
+static int	on_first_list(t_l_p *list_main, t_ll_p *own_ll_p, int *eat, t_l_ep *__)
 {
 	struct timeval		tv;
 	unsigned long int	time;
 	int					err;
 
-	gettimeofday(&tv, NULL);
-	time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
+	if (own_ll_p == list_main->linked_list_philo)
+		return (0);
 	err = pthread_mutex_lock(&list_main->linked_list_philo->mutex_fork);
 	if (err)
 		return ((long int) return_error(1, err, 1));
+	gettimeofday(&tv, NULL);
+	time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
+	if (check_die2(list_main, own_ll_p, *eat, __))
+	{
+		err = pthread_mutex_unlock(&list_main->linked_list_philo->mutex_fork);
+		if (err)
+			return ((long int) return_error(2, err, 1));
+		return (1);
+	}
 	own_ll_p->prev->fork = 1;
 	printf("\033[32m%-5lu %-5d has taken a fork\033[00m\n", time, own_ll_p->id);
 	printf("\033[34m%-5lu %-5d is eating\033[00m\n", time, own_ll_p->id);
+	if ((unsigned long long)list_main->time_to_eat > __->list_main->time_to_die - __->time - __->eat)
+		printf("MORT pendant qu'il mange\n%d\n%llu\n", list_main->time_to_eat, __->list_main->time_to_die - __->time - __->eat);
 	usleep(list_main->time_to_eat * 1000);
 	gettimeofday(&tv, NULL);
 	*eat = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - list_main->timestamp;
