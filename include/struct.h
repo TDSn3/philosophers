@@ -6,14 +6,16 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/19 10:57:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/20 16:56:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+struct	s_list_philo;
 struct	s_linked_list_philo;
+struct	s_list_exec_philo;
 
 /* ************************************************************************** */
 
@@ -27,6 +29,7 @@ typedef struct s_list_philo {
 	unsigned long long int		timestamp;
 	pthread_mutex_t				mutex_start;
 	int							start;
+	int							all_alives;
 }	t_l_p;
 
 /* ************************************************************************** */
@@ -38,6 +41,7 @@ typedef struct s_linked_list_philo
 	pthread_t					the_philosopher;
 	pthread_mutex_t				mutex_fork;
 	int							fork;
+	struct s_list_exec_philo	*__;
 	struct s_list_philo			*list_main;
 	struct s_linked_list_philo	*prev;
 	struct s_linked_list_philo	*next;
