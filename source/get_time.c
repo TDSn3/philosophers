@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_thread.c                                      :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 01:14:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/21 19:01:37 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/21 22:17:06 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/21 22:30:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	wait_thread(t_l_p *list_main)
+int	get_time(t_l_p *list_main, unsigned long long int *time)
 {
-	int		i;
-	t_ll_p	*copy;
+	struct timeval			tv;
 
-	i = 0;
-	copy = (t_ll_p *)list_main->linked_list_philo;
-	while (i < list_main->number_of_philosophers && copy)
-	{
-		if (copy->alive)
-			pthread_join (copy->the_philosopher, NULL);
-		i++;
-		copy = copy->next;
-		usleep(1000);
-	}
+	if (gettimeofday(&tv, NULL))
+		return ((long int) return_error(3, errno, 1));
+	*time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000))
+		- list_main->timestamp;
+	return (0);
 }

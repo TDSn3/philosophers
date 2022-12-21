@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/20 16:56:33 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:03:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_list_philo {
 	struct s_linked_list_philo	*linked_list_philo;
 	unsigned long long int		timestamp;
 	pthread_mutex_t				mutex_start;
-	int							start;
 	int							all_alives;
 }	t_l_p;
 
@@ -41,7 +40,10 @@ typedef struct s_linked_list_philo
 	pthread_t					the_philosopher;
 	pthread_mutex_t				mutex_fork;
 	int							fork;
-	struct s_list_exec_philo	*__;
+	struct timeval				tv;
+	unsigned long long int		time;
+	int							eat;
+	int							err;
 	struct s_list_philo			*list_main;
 	struct s_linked_list_philo	*prev;
 	struct s_linked_list_philo	*next;
@@ -55,15 +57,13 @@ int								ll_p_size(t_ll_p *list);
 
 /* ************************************************************************** */
 
-typedef struct s_list_exec_philo {
-	struct s_linked_list_philo	*own_ll_p;
-	struct s_list_philo			*list_main;
-	struct timeval				tv;
-	unsigned long long int		time;
-	int							eat;
-	int							err;
-}	t_l_ep;
-
-/* ************************************************************************** */
+typedef enum e_prompt {
+	FORK1,
+	FORK2,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED
+}	t_print;
 
 #endif

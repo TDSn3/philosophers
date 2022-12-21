@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/19 20:50:06 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/21 22:25:27 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,13 @@ NAME_FILE	= $(addprefix t_ll_p/,												\
 			  check_error														\
 			  init																\
 			  exec_philo														\
+			  get_time															\
 			  start_all_thread													\
-			  wait_thread														\
+			  print_philo														\
+			  take_first_fork													\
 			  take_fork															\
 			  check_die															\
+			  wait_thread														\
 			  free_all															\
 			  return_error														\
 

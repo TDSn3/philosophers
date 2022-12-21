@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 10:59:24 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/20 16:57:23 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 21:50:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_ll_p	*ll_p_new(int id_philo, t_l_p *list_main)
 	list->mutex_fork = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	if (init_fork(list))
 		return (NULL);
-	list->__ = NULL;
+	list->time = 0;
+	list->err = 0;
 	list->list_main = list_main;
 	list->prev = NULL;
 	list->next = NULL;
@@ -49,6 +50,7 @@ static int	init_fork(t_ll_p *list)
 		return (1);
 	}
 	list->fork = 0;
+	list->eat = 0;
 	err = pthread_mutex_unlock(&list->mutex_fork);
 	if (err)
 	{

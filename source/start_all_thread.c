@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:52:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/19 09:54:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:44:27 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ int	start_all_thread(t_l_p *list_main)
 int	exec_all_thread(t_l_p *list_main)
 {
 	int		i;
-	int		ret;
+	int		err;
 	t_ll_p	*copy;
 
 	i = 0;
 	copy = list_main->linked_list_philo;
 	while (i < list_main->number_of_philosophers && copy)
 	{
-		ret = pthread_create(
+		err = pthread_create(
 				&copy->the_philosopher, NULL, exec_philo, (void *) copy);
-		if (ret)
+		if (err)
 		{
 			ft_putstr_fd("Error : thread no created\n", 2);
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/20 20:47:47 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:42:11 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,13 @@ int	main(int argc, char **argv)
 
 
 
-
-	struct timeval		tv;
-
-	while (list_main.start < list_main.number_of_philosophers)
-		usleep(50);
+	usleep(1000);
 	while (1)
 	{
 		copy = list_main.linked_list_philo;
-		if (gettimeofday(&tv, NULL))
-			return ((long int) return_error(3, errno, 1));
-		copy->__->time = ((tv.tv_sec * 1000) + (tv.tv_usec / 1000))
-			- copy->list_main->timestamp - copy->__->eat;
 		while (copy)
 		{
-			if (check_die(&list_main, copy, copy->__->eat, copy->__))
+			if (check_die(copy))
 				break ;
 			copy = copy->next;
 		}
@@ -56,6 +48,6 @@ int	main(int argc, char **argv)
 		copy = list_main.linked_list_philo;
 		usleep(1000);
 	}
-//	wait_thread(&list_main);
+	wait_thread(&list_main);
 	return (free_all(0, &list_main));
 }

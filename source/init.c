@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/20 16:05:11 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:03:48 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	mutex_init_var_start(t_l_p *list_main)
 		ft_putstr_fd("Error : pthread_mutex_lock\n", 2);
 		return (1);
 	}
-	list_main->start = 0;
 	list_main->all_alives = 1;
 	err = pthread_mutex_unlock(&list_main->mutex_start);
 	if (err)
