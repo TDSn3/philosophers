@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/21 17:03:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:07:37 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_linked_list_philo
 	int							fork;
 	struct timeval				tv;
 	unsigned long long int		time;
+	pthread_mutex_t				mutex_eat;
 	int							eat;
 	int							err;
 	struct s_list_philo			*list_main;

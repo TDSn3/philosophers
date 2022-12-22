@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:16:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/19 10:39:34 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:51:57 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	print_error_pthread_mutex_lock(int err);
 static void	print_error_pthread_mutex_unlock(int err);
 static void	print_error_gettimeofday(int err);
-
 
 /* ************************************************************************** */
 /*                                                                            */

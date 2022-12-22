@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/21 22:25:27 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/22 12:09:57 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ NAME_FILE	= $(addprefix t_ll_p/,												\
 			  ft_putstr_fd														\
 			  check_error														\
 			  init																\
+			  my_usleep															\
 			  exec_philo														\
 			  get_time															\
 			  start_all_thread													\
@@ -65,6 +66,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux
 
+#-fsanitize=thread
+
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
@@ -73,7 +76,7 @@ $(NAME): $(OBJ)
 ################################################################################
 
 valgrind: $(OBJ)
-	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --track-fds=yes -fsanitize=thread ./$(NAME)
+	valgrind --tool=memcheck --tool=helgrind  --track-origins=yes --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
 
 ################################################################################
 
