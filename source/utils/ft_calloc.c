@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_thread.c                                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 01:14:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 20:52:21 by tda-silv         ###   ########.fr       */
+/*   Created: 2021/12/01 11:15:35 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/23 19:49:11 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	wait_thread(t_l_p *list_main)
+void	ft_bzero(void *s, size_t n);
+
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int		i;
-	t_ll_p	*copy;
+	void	*tab;
+
+	tab = malloc(nmemb * size);
+	if (!tab)
+		return (NULL);
+	ft_bzero(tab, nmemb * size);
+	return (tab);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
 
 	i = 0;
-	copy = (t_ll_p *)list_main->linked_list_philo;
-	while (i < list_main->number_of_philosophers && copy)
+	while (i < n)
 	{
-		pthread_join (copy->the_philosopher, NULL);
+		((char *)s)[i] = '\0';
 		i++;
-		copy = copy->next;
-		usleep(1000);
 	}
 }

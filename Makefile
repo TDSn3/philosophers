@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/23 14:33:12 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/23 21:17:10 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,18 +43,22 @@ NAME_FILE	= $(addprefix t_ll_p/,												\
 			  $(addprefix utils/,												\
 								 ft_strlen										\
 								 ft_putstr_fd									\
+								 ft_calloc										\
 								 get_time										\
 								 my_usleep										\
 								 print_philo									\
 								 free_all										\
 								 return_error									\
 			   )																\
+			  $(addprefix take_first_fork/,										\
+										  take_first_fork						\
+										  first_on_first_list					\
+			   )																\
 			  main																\
 			  check_error														\
 			  init																\
 			  exec_philo														\
 			  start_all_thread													\
-			  take_first_fork													\
 			  take_fork															\
 			  check_die															\
 			  wait_thread														\
@@ -66,21 +70,12 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux
-
-#-fsanitize=thread
+	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@ -D_REENTRANT -DLinux -g
 
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME) -D_REENTRANT -DLinux
-
-################################################################################
-
-valgrind: $(OBJ)
-	valgrind --tool=memcheck --tool=helgrind  --track-origins=yes --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
-
-################################################################################
+	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME) -D_REENTRANT -DLinux -g
 
 clean:
 	rm -rf $(OBJ_DIR)
@@ -90,4 +85,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all valgrind clean fclean re
+.PHONY: all clean fclean re

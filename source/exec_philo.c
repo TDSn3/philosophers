@@ -6,14 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 00:31:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 14:11:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 20:11:15 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	philo_sleep(t_ll_p	*__);
-static void	*alive_zero(t_ll_p *__);
 
 void	*exec_philo(void *data)
 {
@@ -28,18 +27,12 @@ void	*exec_philo(void *data)
 	while (1)
 	{
 		if (take_first_fork(__) || philo_sleep(__))
-			return (alive_zero(__));
+			return (NULL);
 		if (__->list_main->number_of_philosophers % 2 != 0
 			&& __->list_main->time_to_sleep <= __->list_main->time_to_eat)
 			my_usleep(__->list_main, (__->list_main->time_to_eat * 2)
 				- __->list_main->time_to_sleep);
 	}
-	return (alive_zero(__));
-}
-
-static void	*alive_zero(t_ll_p *__)
-{
-	__->alive = 0;
 	return (NULL);
 }
 

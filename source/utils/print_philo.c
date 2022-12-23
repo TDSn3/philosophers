@@ -6,34 +6,59 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 14:00:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 18:21:16 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 21:38:26 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+static int	argc_6_check(t_ll_p *__);
 static void	use_printf(t_ll_p *__, t_print status);
 
 int	print_philo(t_ll_p *__, t_print status)
 {
-	__->err = pthread_mutex_lock(&__->list_main->mutex_start);
-	if (__->err)
-		return ((long int) return_error(1, __->err, 1));
-	if (__->list_main->all_alives == 0 || (__->list_main->argc == 6
-			&& *__->total_eat
-			>= __->list_main->number_of_times_each_philosopher_must_eat))
+	int	err;
+
+	err = pthread_mutex_lock(&__->list_main->mutex_start);
+	if (err)
+		return ((long int) return_error(1, err, 1));
+	if (__->list_main->all_alives == 0 || argc_6_check(__))
 	{
-		__->err = pthread_mutex_unlock(&__->list_main->mutex_start);
-		if (__->err)
-			return ((long int) return_error(2, __->err, 1));
+		err = pthread_mutex_unlock(&__->list_main->mutex_start);
+		if (err)
+			return ((long int) return_error(2, err, 1));
 		return (2);
 	}
 	if (get_time(__->list_main, &__->time))
 		return (1);
 	use_printf(__, status);
-	__->err = pthread_mutex_unlock(&__->list_main->mutex_start);
-	if (__->err)
-		return ((long int) return_error(2, __->err, 0));
+	err = pthread_mutex_unlock(&__->list_main->mutex_start);
+	if (err)
+		return ((long int) return_error(2, err, 0));
+	return (0);
+}
+
+static int	argc_6_check(t_ll_p *__)
+{
+	int	err;
+
+	if (__->list_main->argc == 6)
+	{
+		err = pthread_mutex_lock(&__->mutex_eat);
+		if (err)
+			return ((long int) return_error(1, err, 1));
+		if (*__->total_eat
+			>= __->list_main->number_of_times_each_philosopher_must_eat)
+		{
+			err = pthread_mutex_unlock(&__->mutex_eat);
+			if (err)
+				return ((long int) return_error(2, err, 1));
+			return (2);
+		}
+		err = pthread_mutex_unlock(&__->mutex_eat);
+		if (err)
+			return ((long int) return_error(2, err, 1));
+	}
 	return (0);
 }
 
