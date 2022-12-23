@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 23:21:12 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/21 17:03:48 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 01:47:05 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	mutex_init_var_start(t_l_p *list_main);
 
 int	init(t_l_p *list_main, int argc, char **argv)
 {
+	list_main->argc = argc;
 	list_main->number_of_philosophers = ft_atoi(argv[1]);
 	if (list_main->number_of_philosophers > PTHREAD_KEYS_MAX
 		|| list_main->number_of_philosophers < 1)
@@ -27,6 +28,7 @@ int	init(t_l_p *list_main, int argc, char **argv)
 	list_main->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		list_main->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	list_main->end_eat = 0;
 	if (init_ll_p(list_main))
 		return (1);
 	pthread_mutex_init(&list_main->mutex_start, NULL);
