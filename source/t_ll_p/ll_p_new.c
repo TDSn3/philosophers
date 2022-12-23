@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 10:59:24 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 13:07:50 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:23:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,49 +42,20 @@ static int	init_mutex(t_ll_p *list)
 
 	err = pthread_mutex_lock(&list->mutex_fork);
 	if (err)
-	{
-		ft_putstr_fd("Error: ll_p_new: init_fork: ", 2);
-		if (err == EINVAL)
-			ft_putstr_fd("mutex not initialized\n", 2);
-		if (err == EDEADLK)
-			ft_putstr_fd("already locked by a different thread\n", 2);
-		return (1);
-	}
+		return ((long int) return_error(1, err, 1));
 	list->fork = 0;
 	err = pthread_mutex_unlock(&list->mutex_fork);
 	if (err)
-	{
-		ft_putstr_fd("Error: ll_p_new: init_fork: ", 2);
-		if (err == EINVAL)
-			ft_putstr_fd("mutex not initialized\n", 2);
-		if (err == EPERM)
-			ft_putstr_fd("the thread has no control over the mutex\n", 2);
-		return (1);
-	}
-
+		return ((long int) return_error(2, err, 1));
 	err = pthread_mutex_lock(&list->mutex_eat);
 	if (err)
-	{
-		ft_putstr_fd("Error: ll_p_new: init_fork: ", 2);
-		if (err == EINVAL)
-			ft_putstr_fd("mutex not initialized\n", 2);
-		if (err == EDEADLK)
-			ft_putstr_fd("already locked by a different thread\n", 2);
-		return (1);
-	}
+		return ((long int) return_error(1, err, 1));
 	list->eat = 0;
 	list->total_eat = malloc(sizeof(int));
 	if (!list->total_eat)
 		return (1);
 	err = pthread_mutex_unlock(&list->mutex_eat);
 	if (err)
-	{
-		ft_putstr_fd("Error: ll_p_new: init_fork: ", 2);
-		if (err == EINVAL)
-			ft_putstr_fd("mutex not initialized\n", 2);
-		if (err == EPERM)
-			ft_putstr_fd("the thread has no control over the mutex\n", 2);
-		return (1);
-	}
+		return ((long int) return_error(2, err, 1));
 	return (0);
 }

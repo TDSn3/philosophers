@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 14:16:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:26:02 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ static void	supervisor(t_l_p *list_main)
 		copy = list_main->linked_list_philo;
 		while (copy)
 		{
-			if (check_die(copy) || list_main->end_eat >= list_main->number_of_philosophers)
+			if (check_die(copy) || list_main->end_eat
+				>= list_main->number_of_philosophers)
 				break ;
 			copy = copy->next;
 		}
-		if (!list_main->all_alives || list_main->end_eat >= list_main->number_of_philosophers)
+		if (!list_main->all_alives || list_main->end_eat
+			>= list_main->number_of_philosophers)
 			break ;
 		copy = list_main->linked_list_philo;
 		usleep(1000);
