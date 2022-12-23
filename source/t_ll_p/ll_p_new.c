@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 10:59:24 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 01:24:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:07:50 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ static int	init_mutex(t_ll_p *list)
 		return (1);
 	}
 	list->eat = 0;
-	list->total_eat = 0;
+	list->total_eat = malloc(sizeof(int));
+	if (!list->total_eat)
+		return (1);
 	err = pthread_mutex_unlock(&list->mutex_eat);
 	if (err)
 	{

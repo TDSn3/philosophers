@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/22 12:09:57 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/23 14:33:12 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,22 +40,24 @@ NAME_FILE	= $(addprefix t_ll_p/,												\
 								 ll_p_new										\
 								 ll_p_size										\
 			   )																\
+			  $(addprefix utils/,												\
+								 ft_strlen										\
+								 ft_putstr_fd									\
+								 get_time										\
+								 my_usleep										\
+								 print_philo									\
+								 free_all										\
+								 return_error									\
+			   )																\
 			  main																\
-			  ft_strlen															\
-			  ft_putstr_fd														\
 			  check_error														\
 			  init																\
-			  my_usleep															\
 			  exec_philo														\
-			  get_time															\
 			  start_all_thread													\
-			  print_philo														\
 			  take_first_fork													\
 			  take_fork															\
 			  check_die															\
 			  wait_thread														\
-			  free_all															\
-			  return_error														\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

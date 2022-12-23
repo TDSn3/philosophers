@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:31:24 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/23 01:38:48 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:11:20 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static int	own_fork_end(t_ll_p *__)
 		return ((long int) return_error(1, __->err, 1));
 	if (get_time(__->list_main, (unsigned long long int *) &__->eat))
 		return (1);
-	__->total_eat += 1;
+	*__->total_eat += 1;
 	__->err = pthread_mutex_unlock(&__->mutex_eat);
 	if (__->err)
 		return ((long int) return_error(2, __->err, 1));
